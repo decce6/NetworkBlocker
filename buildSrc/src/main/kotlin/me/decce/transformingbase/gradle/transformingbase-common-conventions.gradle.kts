@@ -164,7 +164,7 @@ publishMods {
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
         clientRequired = true
         serverRequired = true
-        projectId = ""
+        projectId = "1450738"
         projectSlug = modid
         if (hasProperty("minecraft_supported_from")) {
             minecraftVersionRange {
@@ -179,7 +179,7 @@ publishMods {
 
     modrinth {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-        projectId = ""
+        projectId = "networkblocker"
         if (hasProperty("minecraft_supported_from")) {
             minecraftVersionRange {
                 start = prop("minecraft_supported_from")
