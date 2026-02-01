@@ -20,5 +20,5 @@ jobs:
         run: ./gradlew buildAndCollect --stacktrace
       - uses: actions/upload-artifact@v4
         with:
-          name: Ixeris
+          name: Network Blocker
           path: build/libs
