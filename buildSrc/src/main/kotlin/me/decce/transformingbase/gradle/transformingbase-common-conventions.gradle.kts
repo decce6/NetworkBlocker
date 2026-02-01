@@ -153,7 +153,7 @@ tasks {
 publishMods {
     type = BETA
     version = fullModVersion()
-    dryRun = providers.environmentVariable("CURSEFORGE_TOKEN").getOrNull() == null || providers.environmentVariable("MODRINTH_TOKEN").getOrNull() == null
+    dryRun = providers.environmentVariable("CURSEFORGE_TOKEN").getOrNull() == null && providers.environmentVariable("MODRINTH_TOKEN").getOrNull() == null
     changelog = fetchLatestChangelog()
     displayName = "${prop("mod_name")} ${fullModVersion()}"
     modLoaders.add(prop("deps.platform"))
