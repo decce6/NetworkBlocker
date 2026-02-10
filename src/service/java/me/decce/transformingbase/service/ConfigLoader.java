@@ -116,6 +116,13 @@ public class ConfigLoader {
                     field.set(config, night.get(field.getName()));
                 }
             }
+            if ("REDIRECT".equals(config.blockMethod)) config.currentBlockMethod = NetworkBlockerConfig.BlockMethod.REDIRECT;
+            else if ("THROW".equals(config.blockMethod)) config.currentBlockMethod = NetworkBlockerConfig.BlockMethod.THROW;
+            else {
+                LOGGER.error("Found invalid value for blockMethod, changing to default.");
+                config.blockMethod = "REDIRECT";
+                config.currentBlockMethod = NetworkBlockerConfig.BlockMethod.REDIRECT;
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

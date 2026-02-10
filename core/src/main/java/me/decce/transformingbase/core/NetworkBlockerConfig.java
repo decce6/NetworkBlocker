@@ -36,6 +36,15 @@ public class NetworkBlockerConfig {
     public boolean allowIP = true;
     @Comment("Set to true to add some useful domains to the whitelist. The current defaults are:\n\n" + DEFAULT_WHITELIST + "\nYou can add additional domains to the whitelist using the file in the config folder.")
     public boolean useDefaultWhitelist = true;
+    @Comment("Specifies the method used to block network connection. Valid values:\n" +
+            "REDIRECT: redirect addresses to 0.0.0.0\n" +
+            "THROW: throw an exception")
+    public String blockMethod = "REDIRECT";
+    public transient BlockMethod currentBlockMethod = BlockMethod.REDIRECT;
+    public enum BlockMethod {
+        REDIRECT,
+        THROW
+    }
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.FIELD)

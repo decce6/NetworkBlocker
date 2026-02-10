@@ -1,7 +1,9 @@
 package me.decce.transformingbase.transform.transformers;
 
 import me.decce.transformingbase.core.NetworkBlocker;
+import me.decce.transformingbase.core.NetworkBlockerConfig;
 import me.decce.transformingbase.core.util.Overwriter;
+import me.decce.transformingbase.core.util.Thrower;
 import net.lenni0451.classtransform.InjectionCallback;
 import net.lenni0451.classtransform.annotations.CInline;
 import net.lenni0451.classtransform.annotations.CReplaceCallback;
@@ -23,7 +25,12 @@ public class SocketTransformer {
         var addr = epoint.getAddress();
         var host = epoint.isUnresolved() ? epoint.getHostName() : addr.getHostAddress();
         if (!NetworkBlocker.getManager().checkConnect(host, epoint.getPort())) {
-            Overwriter.overwriteAddress(epoint);
+            if (NetworkBlockerConfig.BlockMethod.REDIRECT == NetworkBlocker.config.currentBlockMethod) {
+                Overwriter.overwriteAddress(epoint);
+            }
+            else {
+                Thrower.throwBlockedException();
+            }
         }
     }
 }

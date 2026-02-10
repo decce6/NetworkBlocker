@@ -1,7 +1,9 @@
 package me.decce.transformingbase.transform.transformers;
 
 import me.decce.transformingbase.core.NetworkBlocker;
+import me.decce.transformingbase.core.NetworkBlockerConfig;
 import me.decce.transformingbase.core.util.Overwriter;
+import me.decce.transformingbase.core.util.Thrower;
 import net.lenni0451.classtransform.InjectionCallback;
 import net.lenni0451.classtransform.annotations.CInline;
 import net.lenni0451.classtransform.annotations.CReplaceCallback;
@@ -23,7 +25,12 @@ public class HttpClientImplTransformer {
                                           HttpResponse.PushPromiseHandler<Object> pushPromiseHandler,
                                           Executor exchangeExecutor, InjectionCallback injectionCallback) {
         if (!NetworkBlocker.getManager().checkConnect(userRequest.uri().getHost(), userRequest.uri().getPort())) {
-            Overwriter.overwriteHttpRequestAddress(userRequest);
+            if (NetworkBlockerConfig.BlockMethod.REDIRECT == NetworkBlocker.config.currentBlockMethod) {
+                Overwriter.overwriteHttpRequestAddress(userRequest);
+            }
+            else {
+                Thrower.throwBlockedException();
+            }
         }
     }
 }

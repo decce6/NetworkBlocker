@@ -1,7 +1,9 @@
 package me.decce.transformingbase.transform.transformers;
 
 import me.decce.transformingbase.core.NetworkBlocker;
+import me.decce.transformingbase.core.NetworkBlockerConfig;
 import me.decce.transformingbase.core.util.Overwriter;
+import me.decce.transformingbase.core.util.Thrower;
 import net.lenni0451.classtransform.annotations.CInline;
 import net.lenni0451.classtransform.annotations.CReplaceCallback;
 import net.lenni0451.classtransform.annotations.CShadow;
@@ -21,7 +23,12 @@ public class HttpClientTransformer {
     @CInject(method = "openServer", target = @CTarget("HEAD"))
     private void networkblocker$openServer() {
         if (!NetworkBlocker.getManager().checkConnect(host, port)) {
-            Overwriter.overwriteHttpClientAddress((Object)this);
+            if (NetworkBlockerConfig.BlockMethod.REDIRECT == NetworkBlocker.config.currentBlockMethod) {
+                Overwriter.overwriteHttpClientAddress((Object)this);
+            }
+            else {
+                Thrower.throwBlockedException();
+            }
         }
     }
 }
