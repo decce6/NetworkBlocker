@@ -24,7 +24,7 @@ public class SocketTransformer {
         var epoint = (InetSocketAddress) endpoint;
         var addr = epoint.getAddress();
         var host = epoint.isUnresolved() ? epoint.getHostName() : addr.getHostAddress();
-        if (!NetworkBlocker.getManager().checkConnect(host, epoint.getPort())) {
+        if (!NetworkBlocker.getManager().checkConnect(host, epoint.getPort()) && !networkblocker$checked()) {
             if (NetworkBlockerConfig.BlockMethod.REDIRECT == NetworkBlocker.config.currentBlockMethod) {
                 Overwriter.overwriteAddress(epoint);
             }
@@ -32,5 +32,16 @@ public class SocketTransformer {
                 Thrower.throwBlockedException();
             }
         }
+    }
+
+    // Walk the stack to find if we came from a checked class, e.g. HttpClient
+    // In such cases, if we are able to come here, it means the domain is permitted,
+    // And we should not block the IP connection here even if allowIP=false
+    private static boolean networkblocker$checked() {
+        return StackWalker.getInstance().walk(s ->
+                s.anyMatch(f ->
+                        NetworkBlocker.checkedClasses.contains(f.getClassName())
+                )
+        );
     }
 }

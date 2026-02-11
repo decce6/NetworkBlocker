@@ -1,8 +1,14 @@
 package me.decce.transformingbase.core;
 
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class NetworkBlocker {
+    public static final Set<String> checkedClasses = Set.of(
+            "sun.net.www.http.HttpClient",
+            "jdk.internal.net.http.HttpClientImpl"
+    );
+
     public static NetworkBlockerConfig config;
     private static final INetworkManager manager = new NetworkManager();
 
