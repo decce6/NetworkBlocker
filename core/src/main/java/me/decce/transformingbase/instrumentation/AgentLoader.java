@@ -27,7 +27,6 @@ public class AgentLoader {
     }
 
     public static Instrumentation load(String path) {
-        System.out.println(path);
         var found = tryFind();
         if (found != null) {
             return found;
