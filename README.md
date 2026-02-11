@@ -1,4 +1,6 @@
-## Network Blocker
+# Network Blocker
+
+## Overview
 
 Network Blocker is a utility mod that allows you to block unwanted network connection.
 
@@ -6,7 +8,7 @@ By default, only connections to Minecraft services are permitted, which are nece
 
 This mod is currently in beta. There might be connections it cannot detect and block, and it should not be considered as a comprehensive security measure against malicious mods.
 
-### Configuration
+## Configuration
 
 You can find the main configuration file in `config/networkblocker/config.toml`:
 
