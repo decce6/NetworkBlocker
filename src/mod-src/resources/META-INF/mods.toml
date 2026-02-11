@@ -20,4 +20,4 @@ mandatory = true
 [[dependencies.${modid}]]
 modId = "forge"
 mandatory = true
-versionRange = "[47.4.11,)"
+versionRange = "[47.1.3,)"
