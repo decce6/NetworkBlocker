@@ -11,7 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.instrument.Instrumentation;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.CodeSource;
 import java.util.Objects;
 
 import static me.decce.transformingbase.core.util.ReflectionHelper.unreflect;
@@ -49,17 +52,35 @@ public class Bootstrapper {
     private static Instrumentation getInstrumentation() {
         try {
             var codeSource = Objects.requireNonNull(Bootstrapper.class.getProtectionDomain().getCodeSource());
-            var path = Paths.get(codeSource.getLocation().toURI());
-            String agent;
-            try {
-                agent = path.toFile().getCanonicalPath();
-            } catch (UnsupportedOperationException uoe) { // unionfs on older NeoForge and Forge
+            var path = getAgentPath(codeSource);
+            if (path != null) {
+                return AgentLoader.load(path);
+            }
+            else {
+                LOGGER.warn("Could not find mod jar, using fallback method for instrumentation");
                 return Agents.getInstrumentation();
             }
-            return AgentLoader.load(agent);
         }
         catch (Throwable e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private static String getAgentPath(CodeSource codeSource) {
+        var location = codeSource.getLocation();
+        try {
+            return Paths.get(location.toURI()).toFile().getAbsolutePath();
+        } catch (UnsupportedOperationException | URISyntaxException uoe) {
+            if ("union".equals(location.getProtocol())) {
+                var path = location.getPath();
+                if (path.contains("%")) {
+                    String parsed = path.substring(0, path.indexOf('%'));
+                    if (Files.exists(Paths.get(parsed))) {
+                        return parsed;
+                    }
+                }
+            }
+            return null;
         }
     }
 
