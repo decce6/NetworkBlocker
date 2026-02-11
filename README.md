@@ -11,8 +11,6 @@ This mod is currently in beta. There might be connections it cannot detect and b
 You can find the main configuration file in `config/networkblocker/config.toml`:
 
 ```toml
-#Specifies whether to enable the mod
-enabled = true
 #When enabled, connections that are permitted will be logged
 logPermitted = false
 #When enabled, connections that are blocked will be logged
@@ -30,6 +28,10 @@ allowIP = true
 #
 #You can add additional domains to the whitelist using the file in the config folder.
 useDefaultWhitelist = true
+#Specifies the method used to block network connection. Valid values:
+#REDIRECT: redirect addresses to 0.0.0.0
+#THROW: throw an exception
+blockMethod = "REDIRECT"
 ```
 
 You can add domains to the whitelist in `config/networkblocker/whitelist.txt`:
