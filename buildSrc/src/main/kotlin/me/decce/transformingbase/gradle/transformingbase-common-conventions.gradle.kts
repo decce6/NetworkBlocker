@@ -119,6 +119,8 @@ repositories {
 tasks {
     named<ShadowJar>("shadowJar") {
         archiveClassifier = "fat"
+        // Note: license files for ClassTransform and Reflect are already included by shadowing
+        from (files(layout.settingsDirectory.file("thirdparty/licenses/LICENSE_NightConfig")))
         from (serviceSourceSet.output)
         relocate("me.decce.transformingbase", "me.decce.$modid")
         relocate("net.lenni0451.classtransform", "me.decce.$modid.shadow.classtransform")

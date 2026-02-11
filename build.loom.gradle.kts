@@ -28,10 +28,6 @@ tasks {
         from (modSourceSet.output)
     }
 
-    named<ProcessResources>("processResources") {
-        from (layout.settingsDirectory.file("thirdparty/licenses/LICENSE-NightConfig"))
-    }
-
     named<RemapJarTask>("remapJar") {
         dependsOn(shadowJar)
         inputFile = shadowJar.flatMap { it.archiveFile }
