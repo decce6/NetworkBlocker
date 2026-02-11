@@ -24,8 +24,6 @@ public class NetworkBlockerConfig {
             minecraft.net
             """;
     public transient Set<String> whitelist = new HashSet<>();
-    @Comment("Specifies whether to enable the mod")
-    public boolean enabled = true;
     @Comment("When enabled, connections that are permitted will be logged")
     public boolean logPermitted = false;
     @Comment("When enabled, connections that are blocked will be logged")
