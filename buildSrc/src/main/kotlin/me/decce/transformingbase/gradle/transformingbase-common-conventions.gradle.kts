@@ -165,7 +165,7 @@ publishMods {
     curseforge {
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
         clientRequired = true
-        serverRequired = true
+        serverRequired = false
         projectId = "1450738"
         projectSlug = modid
         if (hasProperty("minecraft_supported_from")) {
