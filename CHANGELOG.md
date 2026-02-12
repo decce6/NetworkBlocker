@@ -1,3 +1,8 @@
+## 0.2.2
+
+- Fixed crash at startup on Windows
+- Fixed warnings about deprecated methods
+
 ## 0.2.1
 
 Hotfix for log spam at launch.
