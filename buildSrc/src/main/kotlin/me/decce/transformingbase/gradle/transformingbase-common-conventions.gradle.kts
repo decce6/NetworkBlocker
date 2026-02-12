@@ -124,7 +124,7 @@ tasks {
         from (serviceSourceSet.output)
         relocate("me.decce.transformingbase", "me.decce.$modid")
         relocate("net.lenni0451.classtransform", "me.decce.$modid.shadow.classtransform")
-        relocate("net.lenni0451.reflect", "me.decce.$modid.shadow.reflect")
+        relocate("net.lenni0451.reflect", "me.decce.$modid.core.shadow.reflect")
         relocate("com.electronwill.nightconfig", "me.decce.$modid.shadow.nightconfig")
         configurations = listOf(shade)
         mergeServiceFiles()

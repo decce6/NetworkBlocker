@@ -1,6 +1,6 @@
 package me.decce.transformingbase.transform;
 
-import me.decce.transformingbase.core.util.ClassLoaderHelper;
+import me.decce.transformingbase.util.ClassLoaderHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

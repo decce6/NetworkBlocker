@@ -57,7 +57,7 @@ tasks {
     named<ShadowJar>("shadowJar") {
         configurations = listOf(shade)
         relocate("net.lenni0451.classtransform", "me.decce.transformingbase.shadow.classtransform")
-        relocate("net.lenni0451.reflect", "me.decce.transformingbase.shadow.reflect")
+        relocate("net.lenni0451.reflect", "me.decce.transformingbase.core.shadow.reflect")
         relocate("com.electronwill.nightconfig", "me.decce.transformingbase.shadow.nightconfig")
         archiveClassifier = ""
         exclude ("/META-INF/versions/21/**")

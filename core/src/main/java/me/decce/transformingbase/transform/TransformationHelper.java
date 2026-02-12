@@ -1,7 +1,7 @@
 package me.decce.transformingbase.transform;
 
 import me.decce.transformingbase.constants.Constants;
-import me.decce.transformingbase.core.util.ClassLoaderHelper;
+import me.decce.transformingbase.util.ClassLoaderHelper;
 import net.lenni0451.classtransform.TransformerManager;
 import net.lenni0451.classtransform.utils.tree.BasicClassProvider;
 

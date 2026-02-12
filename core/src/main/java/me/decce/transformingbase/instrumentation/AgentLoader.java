@@ -1,6 +1,6 @@
 package me.decce.transformingbase.instrumentation;
 
-import me.decce.transformingbase.core.util.ClassLoaderHelper;
+import me.decce.transformingbase.util.ClassLoaderHelper;
 
 import java.lang.instrument.Instrumentation;
 import java.lang.invoke.MethodHandle;
