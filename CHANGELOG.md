@@ -1,3 +1,7 @@
+## 0.3.0
+
+Fixed crash at startup under certain environments.
+
 ## 0.2.2
 
 - Fixed crash at startup on Windows

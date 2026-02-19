@@ -153,7 +153,7 @@ tasks {
 }
 
 publishMods {
-    type = BETA
+    type = STABLE
     version = fullModVersion()
     dryRun = providers.environmentVariable("CURSEFORGE_TOKEN").getOrNull() == null && providers.environmentVariable("MODRINTH_TOKEN").getOrNull() == null
     changelog = fetchLatestChangelog()
