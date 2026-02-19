@@ -1,4 +1,4 @@
-package me.decce.transformingbase.util;
+package me.decce.transformingbase.core.util;
 
 import net.lenni0451.reflect.JavaBypass;
 
