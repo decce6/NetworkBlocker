@@ -1,3 +1,7 @@
+## 0.3.1
+
+Fixed crash when Socket class is loaded early.
+
 ## 0.3.0
 
 Fixed crash at startup under certain environments.
