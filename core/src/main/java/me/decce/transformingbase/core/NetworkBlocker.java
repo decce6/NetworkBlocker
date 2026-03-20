@@ -23,6 +23,17 @@ public class NetworkBlocker {
         return IP.matcher(host).matches();
     }
 
+    // Walk the stack to find if we came from a checked class, e.g. HttpClient
+    // This is used in SocketTransformer. If we are able to come here, it means the domain is permitted,
+    // And we should not block the IP connection here even if allowIP=false
+    public static boolean checked() {
+        return StackWalker.getInstance().walk(s ->
+                s.anyMatch(f ->
+                        NetworkBlocker.checkedClasses.contains(f.getClassName())
+                )
+        );
+    }
+
     // TODO: port
     public static boolean permitsConnection(String host, int port) {
         if (config.allowIP && isIP(host)) {
