@@ -5,7 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings({"FieldMayBeFinal", "FieldCanBeLocal", "unused"})
@@ -35,10 +34,11 @@ public class NetworkBlockerConfig {
     @Comment("Set to true to add some useful domains to the whitelist. The current defaults are:\n\n" + DEFAULT_WHITELIST + "\nYou can add additional domains to the whitelist using the file in the config folder.")
     public boolean useDefaultWhitelist = true;
     @Comment("Specifies the method used to block network connection. Valid values:\n" +
+            "DEFAULT: use the default blocking method (THROW)\n" +
             "REDIRECT: redirect addresses to 0.0.0.0\n" +
             "THROW: throw an exception")
-    public String blockMethod = "REDIRECT";
-    public transient BlockMethod currentBlockMethod = BlockMethod.REDIRECT;
+    public String blockingMethod = "THROW";
+    public transient BlockMethod currentBlockMethod = BlockMethod.THROW;
     public enum BlockMethod {
         REDIRECT,
         THROW
