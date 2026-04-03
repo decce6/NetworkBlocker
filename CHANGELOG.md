@@ -1,3 +1,10 @@
+## 0.4.0
+
+- Improved `THROW` blocking method 
+- Changed default blocking method to `THROW` to avoid mutating final fields warnings on Java 26+
+- [1.21.1 NeoForge] Fixed `java.nio.file.ProviderNotFoundException: Provider "jar" not found` errors caused by the mod
+- Added 26.1 support
+
 ## 0.3.1
 
 Fixed crash when Socket class is loaded early.
