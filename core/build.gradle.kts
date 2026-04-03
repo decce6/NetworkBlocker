@@ -46,6 +46,9 @@ dependencies {
 
     shade("com.electronwill.night-config:core:3.8.3")
     shade("com.electronwill.night-config:toml:3.8.3")
+
+    compileOnly("org.projectlombok:lombok:1.18.44")
+    annotationProcessor("org.projectlombok:lombok:1.18.44")
 }
 
 tasks {
