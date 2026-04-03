@@ -68,6 +68,9 @@ stonecutter {
                 }
             }
         }
+        fun fabricUnobfuscated(versions: Iterable<String>) {
+            optionallyInclude("fabric", "loom.unobfuscated", versions)
+        }
         fun fabric(versions: Iterable<String>) {
             optionallyInclude("fabric", "loom", versions)
         }
@@ -77,9 +80,10 @@ stonecutter {
         fun forge(versions: Iterable<String>) {
             optionallyInclude("forge", "archloom", versions)
         }
-        
+
+        fabricUnobfuscated (listOf("26.1"))
         fabric (listOf("1.21.11"))
-        neoforge (listOf("1.21.11", "1.21.1"))
+        neoforge (listOf("26.1", "1.21.11", "1.21.1"))
         forge (listOf("1.20.1"))
 
         // This is the default target.

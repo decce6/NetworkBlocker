@@ -1,9 +1,8 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import net.fabricmc.loom.task.RemapJarTask
 
 plugins {
     id("me.decce.transformingbase.gradle.transformingbase-common-conventions")
-    id("net.fabricmc.fabric-loom-remap") version "1.15-SNAPSHOT"
+    id("net.fabricmc.fabric-loom") version "1.15-SNAPSHOT"
     id("com.gradleup.shadow")
     id("me.modmuss50.mod-publish-plugin")
 }
@@ -15,8 +14,7 @@ val modSourceSet = sourceSets["mod-src"]
 
 dependencies {
     minecraft("com.mojang:minecraft:${prop("deps.minecraft")}")
-    mappings(loom.officialMojangMappings())
-    modImplementation("net.fabricmc:fabric-loader:0.17.2")
+    implementation("net.fabricmc:fabric-loader:0.17.2")
 }
 
 tasks {
@@ -26,11 +24,6 @@ tasks {
 
     named<ShadowJar>("shadowJar") {
         from (modSourceSet.output)
-    }
-
-    named<RemapJarTask>("remapJar") {
-        dependsOn(shadowJar)
-        inputFile = shadowJar.flatMap { it.archiveFile }
         archiveClassifier = ""
         manifest.attributes (
             "Automatic-Module-Name" to "me.decce.$modid.${prop("deps.platform")}",
@@ -43,12 +36,12 @@ tasks {
 
     register<Copy>("buildAndCollect") {
         group = "build"
-        dependsOn(remapJar)
-        from(remapJar.flatMap { it.archiveFile })
+        dependsOn(shadowJar)
+        from(shadowJar.flatMap { it.archiveFile })
         into(rootProject.layout.buildDirectory.dir("libs"))
     }
 }
 
 publishMods {
-    file = tasks.remapJar.get().archiveFile
+    file = tasks.shadowJar.get().archiveFile
 }
