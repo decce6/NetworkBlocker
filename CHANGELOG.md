@@ -1,3 +1,7 @@
+## 0.4.1
+
+- Fixed JiJ discovery on Forge (lazyyyyy compatibility)
+
 ## 0.4.0
 
 - Improved `THROW` blocking method 
