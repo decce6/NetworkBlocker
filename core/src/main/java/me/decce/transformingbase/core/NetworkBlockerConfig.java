@@ -29,6 +29,9 @@ public class NetworkBlockerConfig {
     public boolean logStacktrace = false;
     @Comment("When enabled, direct IP connections will be allowed even if they are not in the whitelist")
     public boolean allowIP = true;
+    @Comment("When enabled, treat the whitelist as blacklist. This means all connections are allowed by default, and only connections to the specified domains or attempted by specified mods will be blocked.\n" +
+            "This is useful when you want to only block specific connections that are causing issues.")
+    public boolean blacklistMode = false;
     @Comment("Specifies the method used to block network connection. Valid values:\n" +
             "DEFAULT: use the default blocking method (THROW)\n" +
             "REDIRECT: redirect addresses to 0.0.0.0\n" +

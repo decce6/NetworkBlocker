@@ -36,21 +36,33 @@ public class NetworkBlocker {
         );
     }
 
-    // TODO: port
     public static boolean permitsConnection(ConnectionInfo info) {
         if (config.allowIP && isIP(info.host())) {
             return true;
         }
+        var matched = matchDomain(info) || matchModId(info);
+
+        if (config.blacklistMode) {
+            return !matched;
+        }
+        else {
+            return matched;
+        }
+    }
+
+    private static boolean matchDomain(ConnectionInfo info) {
         for (String whitelistedDomain : config.whitelistedDomains) {
             if (info.host().endsWith(whitelistedDomain)) {
                 return true;
             }
         }
-        if (!config.whitelistedMods.isEmpty()) {
-            for (String whitelistedModId : config.whitelistedMods) {
-                if (info.modid().equals(whitelistedModId)) {
-                    return true;
-                }
+        return false;
+    }
+
+    private static boolean matchModId(ConnectionInfo info) {
+        for (String whitelistedModId : config.whitelistedMods) {
+            if (info.modid().equals(whitelistedModId)) {
+                return true;
             }
         }
         return false;
