@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.gradleup.shadow:shadow-gradle-plugin:9.3.1")
+    implementation("com.gradleup.shadow:shadow-gradle-plugin:9.6.1")
     implementation("me.modmuss50:mod-publish-plugin:2.2.1")
-    implementation("dev.kikugie:stonecutter:0.7.10")
+    implementation("dev.kikugie:stonecutter:0.9.8")
 }

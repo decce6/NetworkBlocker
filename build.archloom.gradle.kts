@@ -3,7 +3,7 @@ import net.fabricmc.loom.task.RemapJarTask
 
 plugins {
     id("me.decce.transformingbase.gradle.transformingbase-common-conventions")
-    id("dev.architectury.loom") version "1.13-SNAPSHOT"
+    id("dev.architectury.loom") version "1.17-SNAPSHOT"
     id("com.gradleup.shadow")
     id("me.modmuss50.mod-publish-plugin")
 }
