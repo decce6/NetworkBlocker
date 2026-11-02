@@ -68,7 +68,7 @@ public class ConfigLoader {
                 if (line.startsWith("=")) {
                     config.whitelistedMods.add(line.substring(1));
                 }
-                else {
+                else if (!line.isBlank()) {
                     config.whitelistedDomains.add(line);
                 }
             }
