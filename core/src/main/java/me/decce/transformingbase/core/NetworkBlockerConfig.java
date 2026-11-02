@@ -9,12 +9,6 @@ import java.util.Set;
 
 @SuppressWarnings({"FieldMayBeFinal", "FieldCanBeLocal", "unused"})
 public class NetworkBlockerConfig {
-    public static final String DEFAULT_WHITELIST = """
-            minecraft.net
-            minecraftservices.com
-            minecraft-services.net
-            mojang.com
-            """;
     public static final String DEFAULT_WHITELIST_FILE_CONTENT = """
             # Add additional domains/mods to the whitelist in this file, one per line
             # Lines starting with # are ignored. (use them as comments!)
@@ -35,8 +29,6 @@ public class NetworkBlockerConfig {
     public boolean logStacktrace = false;
     @Comment("When enabled, direct IP connections will be allowed even if they are not in the whitelist")
     public boolean allowIP = true;
-    @Comment("Set to true to add some useful domains to the whitelist. The current defaults are:\n\n" + DEFAULT_WHITELIST + "\nYou can add additional domains to the whitelist using the file in the config folder.")
-    public boolean useDefaultWhitelist = true;
     @Comment("Specifies the method used to block network connection. Valid values:\n" +
             "DEFAULT: use the default blocking method (THROW)\n" +
             "REDIRECT: redirect addresses to 0.0.0.0\n" +

@@ -61,9 +61,6 @@ public class ConfigLoader {
     private static void loadWhitelist(NetworkBlockerConfig config) {
         try {
             List<String> whitelist = Files.exists(WHITELIST_FILE) ? Files.readAllLines(WHITELIST_FILE) : new ArrayList<>();
-            if (config.useDefaultWhitelist) {
-                whitelist.addAll(NetworkBlockerConfig.DEFAULT_WHITELIST.lines().toList());
-            }
             for (var line : whitelist) {
                 if (line.startsWith("#")) {
                     continue;
