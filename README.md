@@ -4,9 +4,9 @@
 
 Network Blocker is a utility mod that allows you to block unwanted network connection.
 
-By default, only connections to Minecraft services are permitted, which are necessary for authentication, etc. IP connections are also allowed, but this can be changed in the configuration file. By observing the log, you can know which connections are blocked.
+By default, this mod permits connections made by vanilla Minecraft, which are necessary for authentication, etc. Network connections made by mods are blocked by default.
 
-This mod is currently in beta. There might be connections it cannot detect and block, and it should not be considered as a comprehensive security measure against malicious mods.
+While the default is to block all non-vanilla connections, there is also a blacklist mode. This is useful when you want to block only specific connections, filtering by either domain name or the mod that attempted the connection.
 
 ## Configuration
 
@@ -21,28 +21,36 @@ logBlocked = true
 logStacktrace = false
 #When enabled, direct IP connections will be allowed even if they are not in the whitelist
 allowIP = true
-#Set to true to add some useful domains to the whitelist. The current defaults are:
-#
-#minecraft.net
-#minecraftservices.com
-#minecraft-services.net
-#mojang.com
-#
-#You can add additional domains to the whitelist using the file in the config folder.
-useDefaultWhitelist = true
+#When enabled, treat the whitelist as blacklist. This means all connections are allowed by default, and only connections to the specified domains or attempted by specified mods will be blocked.
+#This is useful when you want to only block specific connections that are causing issues.
+blacklistMode = false
 #Specifies the method used to block network connection. Valid values:
+#DEFAULT: use the default blocking method (THROW)
 #REDIRECT: redirect addresses to 0.0.0.0
 #THROW: throw an exception
-blockMethod = "REDIRECT"
+blockingMethod = "DEFAULT"
 ```
 
-You can add domains to the whitelist in `config/networkblocker/whitelist.txt`:
+You can add domains or mods to the whitelist in `config/networkblocker/whitelist.txt`:
 
 ```
-# Add additional domains to whitelist in this file, one per line
-# Lines starting with # will be ignored.
-#
-# Example:
+# Add additional domains/mods to the whitelist in this file, one per line
+# Lines starting with # are ignored. (use them as comments!)
+# Lines starting with = are treated as modid's.
+# Other lines are treated as domain names.
+# The following default allows connection by any mod to *.minecraft.net, as well as any connection made by vanilla game.
+
 minecraft.net
+=minecraft
+```
+
+When `logPermitted` or `logBlocked` is enabled, detailed information is logged, which helps monitor network connection and tells you the mod that attempted each connection:
 
 ```
+[Network Blocker/]: Blocked connection to example.com:443, attempted by mod some_awesome_mod
+[Network Blocker/]: Permitted connection to api.minecraftservices.com:443, attempted by mod minecraft
+```
+
+## Side Requirement
+
+This mod does not have strict side requirements. This means it is possible to install the mod on the client-side without it being present on the dedicated server, and vice versa. Network blocking will work on the side(s) with the mod installed.
