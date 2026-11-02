@@ -78,14 +78,19 @@ public class ConfigLoader {
     }
 
     private static NetworkBlockerConfig loadConfig() {
+        NetworkBlockerConfig config = null;
         if (CONFIG_FILE.toFile().exists()) {
             try {
-                return fromNightConfig();
+                config = fromNightConfig();
             } catch (Exception e) {
                 LOGGER.error("Failed to read configuration!", e);
             }
         }
-        return new NetworkBlockerConfig();
+        if (config == null) {
+            config = new NetworkBlockerConfig();
+        }
+        config.validate();
+        return config;
     }
 
     private static CommentedFileConfig toNightConfig(NetworkBlockerConfig config) {
@@ -119,13 +124,6 @@ public class ConfigLoader {
                 if (night.contains(field.getName())) {
                     field.set(config, night.get(field.getName()));
                 }
-            }
-            if ("REDIRECT".equals(config.blockingMethod)) config.currentBlockMethod = NetworkBlockerConfig.BlockMethod.REDIRECT;
-            else if ("THROW".equals(config.blockingMethod)) config.currentBlockMethod = NetworkBlockerConfig.BlockMethod.THROW;
-            else {
-                LOGGER.error("Found invalid value for blockMethod, changing to default.");
-                config.blockingMethod = "THROW";
-                config.currentBlockMethod = NetworkBlockerConfig.BlockMethod.THROW;
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

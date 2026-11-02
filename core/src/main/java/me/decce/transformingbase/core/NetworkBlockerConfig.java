@@ -36,11 +36,23 @@ public class NetworkBlockerConfig {
             "DEFAULT: use the default blocking method (THROW)\n" +
             "REDIRECT: redirect addresses to 0.0.0.0\n" +
             "THROW: throw an exception")
-    public String blockingMethod = "THROW";
+    public String blockingMethod = "DEFAULT";
     public transient BlockMethod currentBlockMethod = BlockMethod.THROW;
     public enum BlockMethod {
         REDIRECT,
         THROW
+    }
+
+    public void validate() {
+        switch (blockingMethod) {
+            case "REDIRECT" -> currentBlockMethod = NetworkBlockerConfig.BlockMethod.REDIRECT;
+            case "DEFAULT", "THROW" -> currentBlockMethod = NetworkBlockerConfig.BlockMethod.THROW;
+            default -> {
+                LibraryAccessor.error("Invalid value {} for blockMethod, changing to default.", blockingMethod);
+                blockingMethod = "DEFAULT";
+                currentBlockMethod = NetworkBlockerConfig.BlockMethod.THROW;
+            }
+        }
     }
 
     @Retention(RetentionPolicy.RUNTIME)
