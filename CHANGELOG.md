@@ -1,3 +1,19 @@
+## 1.0.0
+
+This is a major update to Network Blocker that brings numerous enhancements. It is now possible to block specific connections with the blacklist mode, filtering by either hostname or the mod that attempted the connection.
+
+If you have made changes to the configuration, it is recommended that you either delete the old configurations, or manually add `=minecraft` to your whitelist to make sure the game can make necessary network requests.
+
+- Added the ability to filter network requests by modid
+- Added a blacklist mode
+- Removed the `useDefaultWhitelist` option (the new default whitelist file already allows connections made by vanilla game)
+  - This is a breaking change - if you use the whitelist mode, make sure to add `=minecraft` to the whitelist to make sure the game can still make normal network requests
+- Implemented `EarlyBootstrapper` for 26.3-neoforge compatibility
+- Added `bannerFile` and `iconFile` for compatibility with newer versions of NeoForge
+- Fixed the default value of `blockingMethod`
+- Changed the default value of `allowIP` to `false`
+- Updated bundled dependencies
+
 ## 0.4.1
 
 - Fixed JiJ discovery on Forge (lazyyyyy compatibility)
