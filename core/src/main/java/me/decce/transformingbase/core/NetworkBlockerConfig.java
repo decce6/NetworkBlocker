@@ -16,13 +16,17 @@ public class NetworkBlockerConfig {
             mojang.com
             """;
     public static final String DEFAULT_WHITELIST_FILE_CONTENT = """
-            # Add additional domains to whitelist in this file, one per line
-            # Lines starting with # will be ignored.
-            #
-            # Example:
+            # Add additional domains/mods to the whitelist in this file, one per line
+            # Lines starting with # are ignored. (use them as comments!)
+            # Lines starting with = are treated as modid's.
+            # Other lines are treated as domain names.
+            # The following default allows connection by any mod to *.minecraft.net, as well as any connection made by vanilla game.
+            
             minecraft.net
+            =minecraft
             """;
-    public transient Set<String> whitelist = new HashSet<>();
+    public transient Set<String> whitelistedDomains = new HashSet<>();
+    public transient Set<String> whitelistedMods = new HashSet<>();
     @Comment("When enabled, connections that are permitted will be logged")
     public boolean logPermitted = false;
     @Comment("When enabled, connections that are blocked will be logged")

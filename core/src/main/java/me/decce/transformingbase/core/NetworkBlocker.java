@@ -6,11 +6,13 @@ import java.util.regex.Pattern;
 public class NetworkBlocker {
     public static final Set<String> checkedClasses = Set.of(
             "sun.net.www.http.HttpClient",
-            "jdk.internal.net.http.HttpClientImpl"
+            "jdk.internal.net.http.HttpClientImpl",
+            "java.net.Socket"
     );
 
     public static NetworkBlockerConfig config;
     private static final INetworkManager manager = new NetworkManager();
+    public static NetworkBlockerAccessor accessor;
 
     // https://stackoverflow.com/a/36760050
     private static final Pattern IP = Pattern.compile("^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])$");
@@ -35,13 +37,20 @@ public class NetworkBlocker {
     }
 
     // TODO: port
-    public static boolean permitsConnection(String host, int port) {
-        if (config.allowIP && isIP(host)) {
+    public static boolean permitsConnection(ConnectionInfo info) {
+        if (config.allowIP && isIP(info.host())) {
             return true;
         }
-        for (String allowed : config.whitelist) {
-            if (host.endsWith(allowed)) {
+        for (String whitelistedDomain : config.whitelistedDomains) {
+            if (info.host().endsWith(whitelistedDomain)) {
                 return true;
+            }
+        }
+        if (!config.whitelistedMods.isEmpty()) {
+            for (String whitelistedModId : config.whitelistedMods) {
+                if (info.modid().equals(whitelistedModId)) {
+                    return true;
+                }
             }
         }
         return false;

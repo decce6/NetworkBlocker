@@ -19,7 +19,7 @@ import java.util.Objects;
 import static me.decce.transformingbase.core.util.ReflectionHelper.unreflect;
 
 public class Bootstrapper {
-    private static final Logger LOGGER = LogManager.getLogger(Constants.MOD_NAME);
+    public static final Logger LOGGER = LogManager.getLogger(Constants.MOD_NAME);
     private static boolean bootstrapped;
 
     public static void bootstrap() {
@@ -44,8 +44,7 @@ public class Bootstrapper {
 
         classLoaderHandler.close();
 
-        initMethodHandles();
-        initConfig();
+        PostBootstrapper.postBootstrap();
     }
 
     private static Instrumentation getInstrumentation() {
@@ -89,29 +88,5 @@ public class Bootstrapper {
             catch (Throwable ignored) {}
         }
         return null;
-    }
-
-    private static void initConfig() {
-        NetworkBlocker.config = ConfigLoader.load();
-        ConfigLoader.save(NetworkBlocker.config);
-    }
-
-    private static void initMethodHandles() {
-        LibraryAccessor.logger = LOGGER;
-        LibraryAccessor.logInfoString = unreflect(() -> Logger.class.getMethod("info", String.class));
-        LibraryAccessor.logInfoObject = unreflect(() -> Logger.class.getMethod("info", Object.class));
-        LibraryAccessor.logInfoStringObject = unreflect(() -> Logger.class.getMethod("info", String.class, Object.class));
-        LibraryAccessor.logWarnString = unreflect(() -> Logger.class.getMethod("warn", String.class));
-        LibraryAccessor.logWarnObject = unreflect(() -> Logger.class.getMethod("warn", Object.class));
-        LibraryAccessor.logWarnStringObject = unreflect(() -> Logger.class.getMethod("warn", String.class, Object.class));
-        LibraryAccessor.logErrorString = unreflect(() -> Logger.class.getMethod("error", String.class));
-        LibraryAccessor.logErrorObject = unreflect(() -> Logger.class.getMethod("error", Object.class));
-        LibraryAccessor.logErrorStringObject = unreflect(() -> Logger.class.getMethod("error", String.class, Object.class));
-        LibraryAccessor.logFatalString = unreflect(() -> Logger.class.getMethod("fatal", String.class));
-        LibraryAccessor.logFatalObject = unreflect(() -> Logger.class.getMethod("fatal", Object.class));
-        LibraryAccessor.logFatalStringObject = unreflect(() -> Logger.class.getMethod("fatal", String.class, Object.class));
-        LibraryAccessor.logDebugString = unreflect(() -> Logger.class.getMethod("debug", String.class));
-        LibraryAccessor.logDebugObject = unreflect(() -> Logger.class.getMethod("debug", Object.class));
-        LibraryAccessor.logDebugStringObject = unreflect(() -> Logger.class.getMethod("debug", String.class, Object.class));
     }
 }

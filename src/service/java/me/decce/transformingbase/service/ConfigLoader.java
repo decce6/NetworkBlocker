@@ -64,10 +64,17 @@ public class ConfigLoader {
             if (config.useDefaultWhitelist) {
                 whitelist.addAll(NetworkBlockerConfig.DEFAULT_WHITELIST.lines().toList());
             }
-            config.whitelist.addAll(whitelist.stream()
-                    .filter( line -> !line.isBlank())
-                    .filter(line -> !line.startsWith("#"))
-                    .toList());
+            for (var line : whitelist) {
+                if (line.startsWith("#")) {
+                    continue;
+                }
+                if (line.startsWith("=")) {
+                    config.whitelistedMods.add(line.substring(1));
+                }
+                else {
+                    config.whitelistedDomains.add(line);
+                }
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
