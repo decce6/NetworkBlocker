@@ -28,7 +28,7 @@ public class NetworkBlockerConfig {
     @Comment("When enabled, stacktrace will be logged")
     public boolean logStacktrace = false;
     @Comment("When enabled, direct IP connections will be allowed even if they are not in the whitelist")
-    public boolean allowIP = true;
+    public boolean allowIP = false;
     @Comment("When enabled, treat the whitelist as blacklist. This means all connections are allowed by default, and only connections to the specified domains or attempted by specified mods will be blocked.\n" +
             "This is useful when you want to only block specific connections that are causing issues.")
     public boolean blacklistMode = false;
