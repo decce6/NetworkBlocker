@@ -51,11 +51,11 @@ dependencies {
     shade("me.decce.transformingbase:core") {
         isTransitive = false
     }
-    shade("net.lenni0451.classtransform:core:1.15.0-SNAPSHOT") {
+    shade("net.lenni0451.classtransform:core:1.15.1") {
         isTransitive = false
     }
-    shade("net.lenni0451:Reflect:1.6.2")
-    shade("com.electronwill.night-config:core:3.8.3")
+    shade("net.lenni0451:Reflect:1.6.4")
+    shade("com.electronwill.night-config:core:3")
     shade("com.electronwill.night-config:toml:3.8.3")
 }
 
@@ -123,8 +123,7 @@ tasks {
         from (files(layout.settingsDirectory.file("thirdparty/licenses/LICENSE_NightConfig")))
         from (serviceSourceSet.output)
         relocate("me.decce.transformingbase", "me.decce.$modid")
-        relocate("net.lenni0451.classtransform", "me.decce.$modid.shadow.classtransform")
-        relocate("net.lenni0451.reflect", "me.decce.$modid.shadow.reflect")
+        relocate("net.lenni0451", "me.decce.$modid.shadow.lenni0451")
         relocate("com.electronwill.nightconfig", "me.decce.$modid.shadow.nightconfig")
         configurations = listOf(shade)
         mergeServiceFiles()

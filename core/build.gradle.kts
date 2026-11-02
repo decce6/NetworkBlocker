@@ -29,10 +29,10 @@ val shade = configurations.create("shade")
 configurations.implementation.get().extendsFrom(shade)
 
 dependencies {
-    shade ("net.lenni0451.classtransform:core:1.15.0-SNAPSHOT") {
+    shade ("net.lenni0451.classtransform:core:1.15.1") {
         isTransitive = false
     }
-    shade ("net.lenni0451:Reflect:1.6.2")
+    shade ("net.lenni0451:Reflect:1.6.4")
 
     compileOnly ("org.apache.logging.log4j:log4j-core:2.19.0")
     compileOnly ("cpw.mods:modlauncher:10.0.9")
@@ -44,8 +44,8 @@ dependencies {
     compileOnly ("org.lwjgl:lwjgl-glfw:3.3.1")
     compileOnly ("org.lwjgl:lwjgl-opengl:3.3.1")
 
-    shade("com.electronwill.night-config:core:3.8.3")
-    shade("com.electronwill.night-config:toml:3.8.3")
+    shade("com.electronwill.night-config:core:3.9.0")
+    shade("com.electronwill.night-config:toml:3.9.0")
 
     compileOnly("org.projectlombok:lombok:1.18.44")
     annotationProcessor("org.projectlombok:lombok:1.18.44")
@@ -59,12 +59,9 @@ tasks {
 
     named<ShadowJar>("shadowJar") {
         configurations = listOf(shade)
-        relocate("net.lenni0451.classtransform", "me.decce.transformingbase.shadow.classtransform")
-        relocate("net.lenni0451.reflect", "me.decce.transformingbase.shadow.reflect")
+        relocate("net.lenni0451", "me.decce.transformingbase.shadow.lenni0451")
         relocate("com.electronwill.nightconfig", "me.decce.transformingbase.shadow.nightconfig")
         archiveClassifier = ""
-        exclude ("/META-INF/versions/21/**")
-        exclude ("/META-INF/versions/24/**")
     }
 
     named("assemble") {
